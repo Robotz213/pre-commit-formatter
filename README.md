@@ -1,6 +1,6 @@
 # Pre-Commit Formatter
 
-> Portuguese version [here](docs/README-pt.md).
+> Portuguese version [here](docs/README-pt.md)(Link only works on the project page).
 
 This project is designed to run pre-commit hooks and format the results into an HTML file for easy viewing.
 

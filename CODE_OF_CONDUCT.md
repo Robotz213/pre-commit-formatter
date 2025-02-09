@@ -1,6 +1,6 @@
 # Contributor Covenant Code of Conduct
 
-> Portuguese version [here](docs/CODE_OF_CONDUCT-pt.md).
+> Portuguese version [here](docs/CODE_OF_CONDUCT-pt.md)(Link only works on the project page).
 
 ## My Pledge
 

@@ -1,6 +1,6 @@
 # Contributing to Pre-Commit Formatter
 
-> Portuguese version [here](docs/CONTRIBUTING-pt.md).
+> Portuguese version [here](docs/CONTRIBUTING-pt.md)(Link only works on the project page).
 
 Thank you for considering contributing to this project! Here are some guidelines to help you get started.
 
