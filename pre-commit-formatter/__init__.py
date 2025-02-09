@@ -1,21 +1,8 @@
-""" "Module for formatting pre-commit result into html file."""
+"""Module for formatting pre-commit results into an HTML file."""
 
 from pathlib import Path
 import subprocess
 from jinja2 import Template, Environment, FileSystemLoader  # noqa: F401
-
-"""
-<li>
-    <h3> File: <a href="./"></a></h3>
-    <p>Error: </p>
-
-    <p>Line: </p>
-
-</li>
-
-
-
-"""
 
 env = Environment(
     loader=FileSystemLoader(Path(__file__).parent.resolve().joinpath("site/templates"))
@@ -27,9 +14,17 @@ path_result_content = Path("result_pre_commit.html")
 
 
 class PreCommitParser:
+    """Class to parse and format pre-commit results."""
+
     @classmethod
     def run_pre_commit(cls) -> str:
-        """Executa o pre-commit e captura a saída."""
+        """Run the pre-commit command and capture its output.
+
+        Returns:
+            str: The output of the pre-commit command.
+        Raises:
+            subprocess.CalledProcessError: If the pre-commit command fails.
+        """
         try:
             result = subprocess.run(
                 ["pre-commit", "run", "--all-files"],
@@ -42,6 +37,11 @@ class PreCommitParser:
 
     @classmethod
     def pre_commit_formatter(cls) -> None:
+        """Format the pre-commit output into an HTML file.
+
+        This method runs the pre-commit command, processes its output, and writes the formatted
+        results into an HTML file.
+        """
         content = cls.run_pre_commit()
 
         content_splitlines = content.splitlines()
