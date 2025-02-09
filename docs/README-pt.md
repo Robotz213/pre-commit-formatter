@@ -21,15 +21,15 @@ poetry install
 Para executar o formatter de pré-commit, execute o seguinte comando:
 
 ```sh
-python -m pre_commit_formatter
+python -m pre_commit_html
 ```
 
 Isso gerará um arquivo HTML chamado `result_pre_commit.html` no diretório do projeto.
 
 ## Estrutura do Projeto
 
-- `pre_commit_formatter/__main__.py`: Contém a função principal para executar o formatter de pré-commit.
-- `pre_commit_formatter/__init__.py`: Contém a classe `PreCommitParser`, que lida com a execução dos hooks de pré-commit e a formatação da saída.
+- `pre_commit_html/__main__.py`: Contém a função principal para executar o formatter de pré-commit.
+- `pre_commit_html/__init__.py`: Contém a classe `PreCommitParser`, que lida com a execução dos hooks de pré-commit e a formatação da saída.
 - `site/templates/`: Contém os templates Jinja2 usados para gerar o arquivo HTML.
 
 ## Templates

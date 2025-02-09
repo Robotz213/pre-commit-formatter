@@ -6,6 +6,6 @@ from . import PreCommitParser
 def main() -> None:
     """Main function to run the pre-commit formatter.
 
-    This function calls the pre_commit_formatter method from the PreCommitParser class.
+    This function calls the pre_commit_html method from the PreCommitParser class.
     """
-    PreCommitParser.pre_commit_formatter()
+    PreCommitParser.pre_commit_html()

@@ -36,7 +36,7 @@ class PreCommitParser:
             return f"Erro ao executar pre-commit: {e.stderr}"
 
     @classmethod
-    def pre_commit_formatter(cls) -> None:
+    def pre_commit_html(cls) -> None:
         """Format the pre-commit output into an HTML file.
 
         This method runs the pre-commit command, processes its output, and writes the formatted
@@ -128,4 +128,4 @@ class PreCommitParser:
             f.write(html_content)
 
 
-PreCommitParser.pre_commit_formatter()
+PreCommitParser.pre_commit_html()
