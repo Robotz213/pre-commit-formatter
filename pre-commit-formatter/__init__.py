@@ -1,8 +1,7 @@
 """ "Module for formatting pre-commit result into html file."""
 
-from html.parser import HTMLParser  # noqa: F401
 from pathlib import Path
-
+import subprocess
 from jinja2 import Template, Environment, FileSystemLoader  # noqa: F401
 
 """
@@ -17,6 +16,7 @@ from jinja2 import Template, Environment, FileSystemLoader  # noqa: F401
 
 
 """
+
 env = Environment(
     loader=FileSystemLoader(Path(__file__).parent.resolve().joinpath("site/templates"))
 )
@@ -26,11 +26,23 @@ render_template = env.get_template
 path_result_content = Path("result_pre_commit.html")
 
 
-def pre_commit_formatter():
-    with open("pre-commit_result.txt", "r", encoding="utf-8") as f:
-        content = f.read()
+class PreCommitParser:
+    @classmethod
+    def run_pre_commit(cls) -> str:
+        """Executa o pre-commit e captura a saída."""
+        try:
+            result = subprocess.run(
+                ["pre-commit", "run", "--all-files"],
+                capture_output=True,
+                text=True,
+            )
+            return result.stdout
+        except subprocess.CalledProcessError as e:
+            return f"Erro ao executar pre-commit: {e.stderr}"
 
-        # html_content =
+    @classmethod
+    def pre_commit_formatter(cls) -> None:
+        content = cls.run_pre_commit()
 
         content_splitlines = content.splitlines()
 
@@ -116,4 +128,4 @@ def pre_commit_formatter():
             f.write(html_content)
 
 
-pre_commit_formatter()
+PreCommitParser.pre_commit_formatter()
