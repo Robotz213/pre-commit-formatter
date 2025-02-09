@@ -4,8 +4,9 @@ version = "0.1.0"
 description = "Format results from pre-commit cmd to HTML file"
 authors = [{ name = "Robotz213", email = "nicholas@robotz.dev" }]
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.13"
-dependencies = ["flask (>=3.1.0,<4.0.0)"]
+dependencies = ["flask (>=3.1.0,<4.0.0)", "pre-commit (>=4.1.0,<5.0.0)"]
 
 
 [build-system]
