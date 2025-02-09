@@ -60,7 +60,7 @@ def pre_commit_formatter():
                     )
                 )
                 code_error.append(
-                    f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}"></a>{message}</p>'
+                    f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
                 )
 
             elif "\\" in line and ":" in line and len(code_part) > 0:
@@ -96,7 +96,7 @@ def pre_commit_formatter():
                     )
                 )
                 code_error.append(
-                    f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}"></a>{message}</p>'
+                    f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
                 )
                 continue
 
