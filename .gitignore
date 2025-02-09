@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 pre-commit_result.txt
+result_pre_commit.html
 # Distribution / packaging
 .Python
 build/
