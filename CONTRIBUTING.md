@@ -34,7 +34,7 @@ Thank you for considering contributing to this project! Here are some guidelines
    git push origin my-feature-branch
    ```
 
-7. **Create a Pull Request**: Go to the original repository and create a pull request from your forked repository. Provide a clear description of your changes and why they are necessary.
+7. **Create a Pull Request**: Go to the original repository and create a pull request from your forked repository. Provide a clear description of your changes and why they are necessary. **Note:** The pull request will only be accepted upon review and approval by the project administrators.
 
 ## Code Style
 

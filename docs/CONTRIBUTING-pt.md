@@ -32,7 +32,7 @@ Obrigado por considerar contribuir para este projeto! Aqui estão algumas diretr
    git push origin minha-branch-de-recurso
    ```
 
-7. **Crie um Pull Request**: Vá para o repositório original e crie um pull request a partir do seu repositório forkado. Forneça uma descrição clara das suas alterações e por que elas são necessárias.
+7. **Crie um Pull Request**: Vá para o repositório original e crie um pull request a partir do seu repositório forkado. Forneça uma descrição clara das suas alterações e por que elas são necessárias. **Nota:** O pull request só será aceito mediante avaliação e aprovação dos administradores do projeto.
 
 ## Estilo de Código
 
