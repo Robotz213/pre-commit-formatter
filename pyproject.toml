@@ -1,0 +1,21 @@
+[project]
+name = "pre-commit-formatter"
+version = "0.1.0"
+description = "Format results from pre-commit cmd"
+authors = [
+    {name = "Robotz213",email = "nicholas@robotz.dev"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "flask (>=3.1.0,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.9.5"
+

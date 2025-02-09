@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Commit Result</title>
+
+  </head>
+
+  <body>
+    <h1>Pre-Commit Result</h1>
+    <p>Pre-Commit Result: <span id="result"></span></p>
+
+    <ul>
+      
+      
+<h3>File: <a href="./app/__init__.py:77:9">app/__init__.py:77:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC201"></a> DOC201 `return` is not documented in docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+  76 |     async def main(self) -> tuple[ASGIApp, Celery]:
+  
+  77 |         """Run the main application loop."""
+  
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DOC201
+  
+  78 |         task = asyncio.create_task(self.create_app())
+  
+  79 |         await task
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./app/routes/bot.py:31:5">app/routes/bot.py:31:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ValueError` missing from docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+  29 |   @bot.post("/bot/<id>/<system>/<typebot>")
+  
+  30 |   async def botlaunch(id: int, system: str, typebot: str) -> Response:  # noqa: A002
+  
+  31 | /     """Launch a new bot with the specified parameters.
+  
+  32 | |
+  
+  33 | |     Args:
+  
+  34 | |         id (int): The identifier for the bot.
+  
+  35 | |         system (str): The system the bot is associated with.
+  
+  36 | |         typebot (str): The type of bot to launch.
+  
+  37 | |
+  
+  38 | |     Returns:
+  
+  39 | |         Response: JSON response indicating the success or error of the launch operation.
+  
+  40 | |
+  
+  41 | |     """
+  
+     | |_______^ DOC501
+  
+  42 |       db: SQLAlchemy = app.extensions["sqlalchemy"]
+  
+  43 |       message = {"success": "success"}
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/Utils/Driver/__init__.py:107:9">bot/Utils/Driver/__init__.py:107:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC201"></a> DOC201 `return` is not documented in docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  106 |       def is_connectable(self, host: Optional[str] = "127.0.0.1") -> bool:
+  
+  107 | /         """Try to connect to the server at port to see if it is running.
+  
+  108 | |
+  
+  109 | |         Args:
+  
+  110 | |             host (Optional[str], optional): The host to connect to. Defaults to "localhost".
+  
+  111 | |
+  
+  112 | |         """
+  
+      | |___________^ DOC201
+  
+  113 |           socket_ = None
+  
+  114 |           try:
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/Utils/__init__.py:325:9">bot/Utils/__init__.py:325:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exceptions are not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  324 |       def dataFrame(self) -> list[dict[str, str]]:  # noqa: N802
+  
+  325 | /         """Convert an Excel file to a list of dictionaries with formatted data.
+  
+  326 | |
+  
+  327 | |         Reads an Excel file, processes the data by formatting dates and floats,
+  
+  328 | |         and returns the data as a list of dictionaries.
+  
+  329 | |
+  
+  330 | |         Returns:
+  
+  331 | |             list[dict[str, str]]: A list of dictionaries representing each row in the Excel file.
+  
+  332 | |
+  
+  333 | |         Raises:
+  
+  334 | |             FileNotFoundError: If the specified Excel file does not exist.
+  
+  335 | |             ValueError: If there is an issue reading the Excel file.
+  
+  336 | |
+  
+  337 | |         """
+  
+      | |___________^ DOC502
+  
+  338 |           input_file = Path(self.output_dir_path).joinpath(self.xlsx).resolve()
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/Utils/__init__.py:444:9">bot/Utils/__init__.py:444:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  442 |           fileN: str = None,  # noqa: N803
+  
+  443 |       ) -> None:
+  
+  444 | /         """Append successful execution data to the spreadsheet.
+  
+  445 | |
+  
+  446 | |         Args:
+  
+  447 | |             data (TypeData): The data to append.
+  
+  448 | |             message (str, optional): Success message. Defaults to None.
+  
+  449 | |             fileN (str, optional): Filename to save data. Defaults to None.
+  
+  450 | |
+  
+  451 | |         Raises:
+  
+  452 | |             ValueError: If data is not in the expected format.
+  
+  453 | |
+  
+  454 | |         """
+  
+      | |___________^ DOC502
+  
+  455 |           if not message:
+  
+  456 |               message = "Execu├º├úo do processo efetuada com sucesso!"
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/Utils/__init__.py:707:9">bot/Utils/__init__.py:707:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  706 |       def gpt_chat(self, text_mov: str) -> str:
+  
+  707 | /         """Analyzes a legal document text and adjusts the response based on the document type.
+  
+  708 | |
+  
+  709 | |         Uses the OpenAI GPT model to analyze the provided text and generate a response
+  
+  710 | |         identifying the document type and extracting relevant information.
+  
+  711 | |
+  
+  712 | |         Args:
+  
+  713 | |             text_mov (str): The text of the legal document to be analyzed.
+  
+  714 | |
+  
+  715 | |         Returns:
+  
+  716 | |             str: The adjusted response based on the document type.
+  
+  717 | |
+  
+  718 | |         Raises:
+  
+  719 | |             Exception: If an error occurs during the API call or processing.
+  
+  720 | |
+  
+  721 | |         """
+  
+      | |___________^ DOC502
+  
+  722 |           try:
+  
+  723 |               time.sleep(5)
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/class_thead.py:23:9">bot/class_thead.py:23:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  22 |       def join(self) -> None:
+  
+  23 | /         """
+  
+  24 | |         Wait for the BotThread to finish execution.
+  
+  25 | |
+  
+  26 | |         If an exception occurred during execution, it is raised.
+  
+  27 | |
+  
+  28 | |         Raises:
+  
+  29 | |             Exception: If an exception occurred during execution.
+  
+  30 | |
+  
+  31 | |         """
+  
+     | |___________^ DOC502
+  
+  32 |           Process.join(self)
+  
+  33 |           # Thread.join(self)
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/class_thead.py:55:9">bot/class_thead.py:55:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  54 |       def chk_except(self) -> None:
+  
+  55 | /         """
+  
+  56 | |         Check for exceptions during bot execution.
+  
+  57 | |
+  
+  58 | |         If an exception occurred during execution, it is raised.
+  
+  59 | |
+  
+  60 | |         Raises:
+  
+  61 | |             Exception: If an exception occurred during execution.
+  
+  62 | |
+  
+  63 | |         """
+  
+     | |___________^ DOC502
+  
+  64 |           if self.exc_bot:
+  
+  65 |               raise self.exc_bot
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/core/__init__.py:84:9">bot/core/__init__.py:84:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  83 |       def __init__(self) -> None:
+  
+  84 | /         """Initialize the CrawJUD instance with provided arguments.
+  
+  85 | |
+  
+  86 | |         Raises:
+  
+  87 | |             StartError: If an error occurs during the setup process.
+  
+  88 | |
+  
+  89 | |         """
+  
+     | |___________^ DOC502
+  
+  90 |           super().__init__()
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/core/__init__.py:133:9">bot/core/__init__.py:133:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `StartError` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  132 |       def setup(self, *args: tuple, **kwargs: dict) -> None:
+  
+  133 | /         """Set up the bot by loading configuration and preparing the environment.
+  
+  134 | |
+  
+  135 | |         Performs the following steps:
+  
+  136 | |         1. Loads configuration from a JSON file specified by `self.path_args`.
+  
+  137 | |         2. Sets attributes based on the loaded configuration.
+  
+  138 | |         3. Initializes logging and output directory paths.
+  
+  139 | |         4. Prepares a list of arguments for the system.
+  
+  140 | |         5. Installs certificates if `self.name_cert` is specified.
+  
+  141 | |         6. Creates Excel files for logging successes and errors.
+  
+  142 | |         7. Parses date strings into datetime objects if `self.xlsx` is not specified.
+  
+  143 | |         8. Sets the state or client attribute.
+  
+  144 | |         9. Launches the driver.
+  
+  145 | |
+  
+  146 | |         Args:
+  
+  147 | |             *args (tuple): Positional arguments.
+  
+  148 | |             **kwargs (dict): Keyword arguments.
+  
+  149 | |
+  
+  150 | |         """
+  
+      | |___________^ DOC501
+  
+  151 |           self.row = 0
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/caixa/emissor.py:36:9">bot/scripts/caixa/emissor.py:36:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  35 |       def __init__(self, *args: tuple, **kwargs: dict) -> None:
+  
+  36 | /         """Initialize a new emissor instance.
+  
+  37 | |
+  
+  38 | |         Sets up authentication, initializes variables, and prepares the
+  
+  39 | |         processing environment.
+  
+  40 | |
+  
+  41 | |         Args:
+  
+  42 | |             *args: Variable length argument list.
+  
+  43 | |             **kwargs: Keyword arguments for bot configuration.
+  
+  44 | |
+  
+  45 | |         Raises:
+  
+  46 | |             StartError: If an exception occurs during bot execution.
+  
+  47 | |
+  
+  48 | |         """
+  
+     | |___________^ DOC502
+  
+  49 |           super().__init__()
+  
+  50 |           # PropertiesCrawJUD.kwrgs = kwrgs
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/download.py:49:9">bot/scripts/elaw/download.py:49:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  48 |       def execution(self) -> None:
+  
+  49 | /         """Execute the download process.
+  
+  50 | |
+  
+  51 | |         Raises:
+  
+  52 | |             DownloadError: If an error occurs during execution.
+  
+  53 | |
+  
+  54 | |         """
+  
+     | |___________^ DOC502
+  
+  55 |           frame = self.dataFrame()
+  
+  56 |           self.max_rows = len(frame)
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/download.py:99:9">bot/scripts/elaw/download.py:99:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+   98 |       def queue(self) -> None:
+  
+   99 | /         """Handle the download queue processing.
+  
+  100 | |
+  
+  101 | |         Raises:
+  
+  102 | |             DownloadQueueError: If an error occurs during queue processing.
+  
+  103 | |
+  
+  104 | |         """
+  
+      | |___________^ DOC501
+  
+  105 |           try:
+  
+  106 |               search = self.search_bot()
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/download.py:99:9">bot/scripts/elaw/download.py:99:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+   98 |       def queue(self) -> None:
+  
+   99 | /         """Handle the download queue processing.
+  
+  100 | |
+  
+  101 | |         Raises:
+  
+  102 | |             DownloadQueueError: If an error occurs during queue processing.
+  
+  103 | |
+  
+  104 | |         """
+  
+      | |___________^ DOC502
+  
+  105 |           try:
+  
+  106 |               search = self.search_bot()
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/download.py:129:9">bot/scripts/elaw/download.py:129:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  128 |       def buscar_doc(self) -> None:
+  
+  129 | /         """Access the attachments page.
+  
+  130 | |
+  
+  131 | |         Raises:
+  
+  132 | |             DocumentSearchError: If an error occurs while accessing the page.
+  
+  133 | |
+  
+  134 | |         """
+  
+      | |___________^ DOC502
+  
+  135 |           self.message = "Acessando p├ígina de anexos"
+  
+  136 |           self.type_log = "log"
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/download.py:148:9">bot/scripts/elaw/download.py:148:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  147 |       def download_docs(self) -> None:
+  
+  148 | /         """Download the documents.
+  
+  149 | |
+  
+  150 | |         Raises:
+  
+  151 | |             DocumentDownloadError: If an error occurs during downloading.
+  
+  152 | |
+  
+  153 | |         """
+  
+      | |___________^ DOC502
+  
+  154 |           table_doc: WebElement = self.wait.until(
+  
+  155 |               EC.presence_of_element_located((By.CSS_SELECTOR, self.elements.css_table_doc)),
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/download.py:193:9">bot/scripts/elaw/download.py:193:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  192 |       def rename_doc(self, namefile: str) -> None:
+  
+  193 | /         """Rename the downloaded document.
+  
+  194 | |
+  
+  195 | |         Args:
+  
+  196 | |             namefile (str): The new name for the file.
+  
+  197 | |
+  
+  198 | |         Raises:
+  
+  199 | |             DocumentRenameError: If an error occurs during renaming.
+  
+  200 | |
+  
+  201 | |         """
+  
+      | |___________^ DOC502
+  
+  202 |           filedownloaded = False
+  
+  203 |           while True:
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/provisao.py:139:9">bot/scripts/elaw/provisao.py:139:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  138 |       def setup_calls(self) -> list:
+  
+  139 | /         """Configure sequence of method calls based on the provision data.
+  
+  140 | |
+  
+  141 | |         Returns:
+  
+  142 | |             list: A list of method references to be called.
+  
+  143 | |
+  
+  144 | |         """
+  
+      | |___________^ DOC501
+  
+  145 |           calls = []
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/elaw/sol_pags.py:561:9">bot/scripts/elaw/sol_pags.py:561:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  560 |     def save_changes(self) -> None:
+  
+  561 |         """Save all changes made during the payment process."""
+  
+      |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DOC501
+  
+  562 |         try:
+  
+  563 |             self.message = "Salvando altera├º├Áes"
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/esaj/capa.py:57:9">bot/scripts/esaj/capa.py:57:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  56 |       def execution(self) -> None:
+  
+  57 | /         """Execute the main process for 'capa' operations.
+  
+  58 | |
+  
+  59 | |         Iterates through each row of data, managing the execution flow,
+  
+  60 | |         handling session expirations, and logging any errors that occur during processing.
+  
+  61 | |
+  
+  62 | |         Raises:
+  
+  63 | |             ErroDeExecucao: If an unexpected error occurs during execution.
+  
+  64 | |
+  
+  65 | |         """
+  
+     | |___________^ DOC502
+  
+  66 |           frame = self.dataFrame()
+  
+  67 |           self.max_rows = len(frame)
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/esaj/emissao.py:83:9">bot/scripts/esaj/emissao.py:83:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  82 |       def execution(self) -> None:
+  
+  83 | /         """Execute the emission process.
+  
+  84 | |
+  
+  85 | |         Raises:
+  
+  86 | |             EmissionError: If an error occurs during emission.
+  
+  87 | |
+  
+  88 | |         """
+  
+     | |___________^ DOC502
+  
+  89 |           frame = self.dataFrame()
+  
+  90 |           self.max_rows = len(frame)
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/pje/common/varas_dict.py:8:5">bot/scripts/pje/common/varas_dict.py:8:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC201"></a> DOC201 `return` is not documented in docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+   7 |   def varas() -> dict:
+  
+   8 | /     """Return a dictionary of court names and their corresponding codes.
+  
+   9 | |
+  
+  10 | |     :return: Dictionary of court names and codes.
+  
+  11 | |     """
+  
+     | |_______^ DOC201
+  
+  12 |       return {
+  
+  13 |           "1┬¬ Vara do Trabalho de Boa Vista": "#VTBV1-1",
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/pje/pauta.py:81:9">bot/scripts/pje/pauta.py:81:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+  80 |     def queue(self) -> None:
+  
+  81 |         """Process each vara (court branch) in the queue and fetch data about pautas."""
+  
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DOC501
+  
+  82 |         try:
+  
+  83 |             self.message = f"Buscando pautas na data {self.current_date.strftime('%d/%m/%Y')}"
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/pje/pauta.py:117:9">bot/scripts/pje/pauta.py:117:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  116 |       def get_pautas(self, current_date: type[datetime], vara: str) -> None:
+  
+  117 | /         """Get and parse pautas from the appropriate page.
+  
+  118 | |
+  
+  119 | |         Args:
+  
+  120 | |             current_date (datetime): The date for retrieving pautas.
+  
+  121 | |             vara (str): The vara (court branch).
+  
+  122 | |
+  
+  123 | |         """
+  
+      | |___________^ DOC501
+  
+  124 |           try:
+  
+  125 |               # Interage com a tabela de pautas
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/capa.py:48:9">bot/scripts/projudi/capa.py:48:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  47 |       def execution(self) -> None:
+  
+  48 | /         """Execute the main processing loop, handling each frame of data.
+  
+  49 | |
+  
+  50 | |         Raises:
+  
+  51 | |             Exception: If an unexpected error occurs during execution.
+  
+  52 | |
+  
+  53 | |         """
+  
+     | |___________^ DOC502
+  
+  54 |           frame = self.dataFrame()
+  
+  55 |           self.max_rows = len(frame)
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/capa.py:121:9">bot/scripts/projudi/capa.py:121:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  120 |       def get_process_informations(self) -> list:  # noqa: C901
+  
+  121 | /         """Extract information from the current process in the web driver.
+  
+  122 | |
+  
+  123 | |         Returns:
+  
+  124 | |             list: A list of dictionaries containing process information.
+  
+  125 | |
+  
+  126 | |         Raises:
+  
+  127 | |             Exception: If an error occurs during information extraction.
+  
+  128 | |
+  
+  129 | |         """
+  
+      | |___________^ DOC502
+  
+  130 |           try:
+  
+  131 |               grau = self.bot_data.get("GRAU", 1)
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/movimentacao.py:328:9">bot/scripts/projudi/movimentacao.py:328:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  327 |       def scrap_moves(self, keyword: str) -> None:  # noqa: C901
+  
+  328 | /         """Scrape movements that contain the specified keyword.
+  
+  329 | |
+  
+  330 | |         Args:
+  
+  331 | |             keyword (str): The keyword to search for in movements.
+  
+  332 | |
+  
+  333 | |         Raises:
+  
+  334 | |             ErroDeExecucao: If an error occurs during scraping.
+  
+  335 | |
+  
+  336 | |         Returns:
+  
+  337 | |             bool: True if any movements are found, False otherwise.
+  
+  338 | |
+  
+  339 | |         """
+  
+      | |___________^ DOC502
+  
+  340 |           self.kword = keyword
+  
+  341 |           move_filter = list(filter(self.filter_moves, self.table_moves))
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/movimentacao.py:328:9">bot/scripts/projudi/movimentacao.py:328:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC202"></a> DOC202 Docstring should not have a returns section because the function doesn't return anything</p>
+
+<pre><code class="python">
+  
+      |
+  
+  327 |       def scrap_moves(self, keyword: str) -> None:  # noqa: C901
+  
+  328 | /         """Scrape movements that contain the specified keyword.
+  
+  329 | |
+  
+  330 | |         Args:
+  
+  331 | |             keyword (str): The keyword to search for in movements.
+  
+  332 | |
+  
+  333 | |         Raises:
+  
+  334 | |             ErroDeExecucao: If an error occurs during scraping.
+  
+  335 | |
+  
+  336 | |         Returns:
+  
+  337 | |             bool: True if any movements are found, False otherwise.
+  
+  338 | |
+  
+  339 | |         """
+  
+      | |___________^ DOC202
+  
+  340 |           self.kword = keyword
+  
+  341 |           move_filter = list(filter(self.filter_moves, self.table_moves))
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/proc_parte.py:114:9">bot/scripts/projudi/proc_parte.py:114:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  113 |       def get_process_list(self) -> None:
+  
+  114 | /         """Retrieve and process the list of processes.
+  
+  115 | |
+  
+  116 | |         Extracts process information from the web interface and handles pagination.
+  
+  117 | |         """
+  
+      | |___________^ DOC501
+  
+  118 |           try:
+  
+  119 |               table_processos = self.driver.find_element(By.CLASS_NAME, "resultTable").find_element(By.TAG_NAME, "tbody")
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/protocolo.py:112:9">bot/scripts/projudi/protocolo.py:112:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `ErroDeExecucao` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  111 |     def queue(self) -> None:
+  
+  112 |         """Manage the execution queue for protocol processing."""
+  
+      |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DOC501
+  
+  113 |         try:
+  
+  114 |             search = self.search_bot()
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/scripts/projudi/protocolo.py:593:9">bot/scripts/projudi/protocolo.py:593:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+      |
+  
+  592 |       def remove_files(self) -> None:
+  
+  593 | /         """Remove files from the protocol.
+  
+  594 | |
+  
+  595 | |         Deletes uploaded files from the protocol by interacting with the web
+  
+  596 | |         elements responsible for file management. Confirms deletions through alerts.
+  
+  597 | |
+  
+  598 | |         Raises:
+  
+  599 | |             ErroDeExecucao: If an error occurs during file removal.
+  
+  600 | |
+  
+  601 | |         """
+  
+      | |___________^ DOC502
+  
+  602 |           tablefiles = None
+  
+  603 |           with suppress(TimeoutException):
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./bot/shared/head_gpt.py:10:5">bot/shared/head_gpt.py:10:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC201"></a> DOC201 `return` is not documented in docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+   9 |   def head_gpt() -> LiteralString:
+  
+  10 | /     """Return GPT head text with legal instructions.
+  
+  11 | |
+  
+  12 | |     The returned text describes document types and the output format.
+  
+  13 | |     """
+  
+     | |_______^ DOC201
+  
+  14 |       return (
+  
+  15 |           "Voc├¬ ├® um assistente jur├¡dico especializado em analisar\n"
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./utils/get_location.py:46:9">utils/get_location.py:46:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `NetworkError` missing from docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+  45 |     def __init__(self) -> None:
+  
+  46 |         """Initialize InfoGeoloc by fetching geolocation data."""
+  
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DOC501
+  
+  47 |         ip_external = ip.external()
+  
+  48 |         if not ip_external:
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./utils/status/__init__.py:54:9">utils/status/__init__.py:54:9</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC201"></a> DOC201 `return` is not documented in docstring</p>
+
+<pre><code class="python">
+  
+     |
+  
+  52 |           **kwargs: dict[str, any],
+  
+  53 |       ) -> Self:
+  
+  54 | /         """Initialize the SetStatus instance.
+  
+  55 | |
+  
+  56 | |         :param form: Dictionary containing form data.
+  
+  57 | |         :param files: Dictionary containing file data.
+  
+  58 | |         :param id: Bot ID.
+  
+  59 | |         :param system: System name.
+  
+  60 | |         :param typebot: type of bot.
+  
+  61 | |         :param usr: User name.
+  
+  62 | |         :param pid: Process ID.
+  
+  63 | |         :param status: Status of the bot.
+  
+  64 | |         """
+  
+     | |___________^ DOC201
+  
+  65 |           self.form = form
+  
+  66 |           if self.form is None:
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./utils/status/__init__.py:255:5">utils/status/__init__.py:255:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC501"></a> DOC501 Raised exception `Exception` missing from docstring</p>
+
+<pre><code class="python">
+  
+      |
+  
+  254 |   async def stop_execution(app: Quart, pid: str, robot_stop: bool = False) -> tuple[dict[str, str], int]:
+  
+  255 | /     """Stop the execution of a bot based on its PID.
+  
+  256 | |
+  
+  257 | |     Args:
+  
+  258 | |         app (Quart): The Quart application instance.
+  
+  259 | |         pid (str): The process identifier of the bot.
+  
+  260 | |         robot_stop (bool, optional): Flag to indicate robot stop. Defaults to False.
+  
+  261 | |
+  
+  262 | |     Returns:
+  
+  263 | |         tuple[dict[str, str], int]: A message and HTTP status code.
+  
+  264 | |
+  
+  265 | |     """
+  
+      | |_______^ DOC501
+  
+  266 |       async with app.app_context():
+  
+  267 |           db: SQLAlchemy = app.extensions["sqlalchemy"]
+  
+      |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./utils/status/makefile.py:14:5">utils/status/makefile.py:14:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  13 |   def makezip(pid: str) -> str:
+  
+  14 | /     """Create a ZIP archive for a given process ID.
+  
+  15 | |
+  
+  16 | |     This function collects all relevant files associated with the provided PID,
+  
+  17 | |     excludes certain files and directories, and packages them into a ZIP file
+  
+  18 | |     for easier handling and transmission.
+  
+  19 | |
+  
+  20 | |     Args:
+  
+  21 | |         pid (str): The process ID for which to create the ZIP archive.
+  
+  22 | |
+  
+  23 | |     Returns:
+  
+  24 | |         str: The path to the created ZIP file.
+  
+  25 | |
+  
+  26 | |     Raises:
+  
+  27 | |         Exception: If an error occurs during the ZIP creation process.
+  
+  28 | |
+  
+  29 | |     """
+  
+     | |_______^ DOC502
+  
+  30 |       file_paths = []
+  
+  31 |       exec_path = Path(__file__).cwd().joinpath(f"bot/temp/{pid}").resolve()
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./utils/status/server_side.py:48:5">utils/status/server_side.py:48:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+  47 |   async def FormatMessage(data: dict[str, str | int] = None, pid: str = None, app: Quart = None) -> dict[str, str | int]:  # noqa: C901,ÔÇª
+  
+  48 | /     """Format and update the status message for a given process.
+  
+  49 | |
+  
+  50 | |     This function interacts with a SQLAlchemy database and a Redis client to
+  
+  51 | |     manage and update the status of a process identified by a PID. It ensures
+  
+  52 | |     that the process status is correctly initialized and updated in Redis,
+  
+  53 | |     and it updates the provided data dictionary with the latest status
+  
+  54 | |     information.
+  
+  55 | |
+  
+  56 | |     Args:
+  
+  57 | |         data (dict[str, str | int], optional): A dictionary containing process
+  
+  58 | |             information. Defaults to an empty dictionary.
+  
+  59 | |         pid (str, optional): The process ID. Defaults to None.
+  
+  60 | |         app (Flask, optional): The Quart application instance, used to access
+  
+  61 | |             extensions like SQLAlchemy and Redis. Defaults to None.
+  
+  62 | |
+  
+  63 | |     Returns:
+  
+  64 | |         dict[str, str | int]: The updated data dictionary with the latest
+  
+  65 | |         process status information.
+  
+  66 | |
+  
+  67 | |     Raises:
+  
+  68 | |         Exception: If any error occurs during the process, the original data
+  
+  69 | |         dictionary is returned without modifications.
+  
+  70 | |
+  
+  71 | |     """
+  
+     | |_______^ DOC502
+  
+  72 |       from . import SetStatus
+  
+     |
+  
+</code></pre>
+
+      
+      
+<h3>File: <a href="./utils/status/uninstall_cert.py:9:5">utils/status/uninstall_cert.py:9:5</a></h3>
+
+<p>Error: <a href="https://docs.astral.sh/ruff/rules/#DOC502"></a> DOC502 Raised exception is not explicitly raised</p>
+
+<pre><code class="python">
+  
+     |
+  
+   8 |   def uninstall(nome_do_certificado: str) -> None:
+  
+   9 | /     """Uninstalls a certificate by its name.
+  
+  10 | |
+  
+  11 | |     Args:
+  
+  12 | |         nome_do_certificado (str): The name of the certificate to uninstall.
+  
+  13 | |
+  
+  14 | |     Raises:
+  
+  15 | |         subprocess.CalledProcessError: If the certificate uninstallation process fails.
+  
+  16 | |
+  
+  17 | |     """
+  
+     | |_______^ DOC502
+  
+  18 |       certs = {}
+  
+  19 |       try:
+  
+     |
+  
+</code></pre>
+
+      
+
+    </ul>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+
+  </body>
+
+</html>
