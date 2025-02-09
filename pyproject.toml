@@ -1,7 +1,7 @@
 [project]
-name = "pre_commit_formatter"
+name = "pre_commit_html"
 version = "0.1.0"
-description = "Format results from pre-commit cmd"
+description = "Format results from pre-commit cmd to HTML file"
 authors = [{ name = "Robotz213", email = "nicholas@robotz.dev" }]
 readme = "README.md"
 requires-python = ">=3.13"
