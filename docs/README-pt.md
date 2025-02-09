@@ -2,6 +2,18 @@
 
 Este projeto é projetado para executar hooks de pré-commit e formatar os resultados em um arquivo HTML para visualização fácil.
 
+## Sumário
+
+- [Como Funciona](#como-funciona)
+- [Instalação](#instalação)
+- [Uso](#uso)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Templates](#templates)
+- [Exemplo](#exemplo)
+- [Licença](#licença)
+- [Contribuindo](CONTRIBUTING.md)
+- [Código de Conduta](CODE_OF_CONDUCT.md)
+
 ## Como Funciona
 
 1. **Executar Hooks de Pré-Commit**: A classe `PreCommitParser` executa os hooks de pré-commit usando o comando `pre-commit run --all-files`.
@@ -57,4 +69,4 @@ Aqui está um exemplo de como a saída HTML pode parecer:
 
 ## Licença
 
-Este projeto é licenciado sob a Licença MIT.
+Este projeto é licenciado sob a [Licença MIT](./LICENSE).
