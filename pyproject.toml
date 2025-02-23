@@ -1,6 +1,6 @@
 [project]
 name = "pre_commit_html"
-version = "0.1.2"
+version = "0.1.3"
 description = "Format results from pre-commit cmd to HTML file"
 authors = [{ name = "Robotz213", email = "nicholas@robotz.dev" }]
 readme = "README.md"
@@ -9,7 +9,7 @@ requires-python = ">=3.13"
 dependencies = ["pre-commit (>=4.1.0,<5.0.0)", "jinja2 (>=3.1.5,<4.0.0)"]
 
 [tool.poetry.scripts]
-pre_commit_html = "pre_commit_html:__main__"
+pre-commit-html = "pre_commit_html:__main__"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
