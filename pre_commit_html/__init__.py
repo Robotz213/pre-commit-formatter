@@ -1,7 +1,7 @@
 """Module for formatting pre-commit results into an HTML file."""
 
+import os
 import subprocess
-from contextlib import suppress
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, Template  # noqa: F401
@@ -79,19 +79,29 @@ class PreCommitToHTML:
                     column_code = h3_file.split(":")[2]
                     message = h3_file.split(":")[3]
 
-                    with suppress(Exception):
+                    try:
                         workdir = Path.cwd().resolve()
                         path_code_file = h3_file.split(":")[0]
 
                         path_file_link = generate_editor_links(
                             workdir.joinpath(str(path_code_file)), int(line_code), int(column_code)
                         )[self.ide]
+                    except Exception as e:
+                        print(  # noqa:T201
+                            f"""
+                            ====================================
+                            Error to generate link to file editor
+                            File: {path_code_file}
+                            Exception: {e}
+                            ====================================
+                            """
+                        )
 
                     ruff_ref = message.split(" ")[1]
 
                     code_error.append(
                         "".join((
-                            f'<h3>File: <a href="{path_file_link}:{line_code}:',
+                            f'<h3>File: <a href="{path_file_link}',
                             f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
                         ))
                     )
@@ -134,7 +144,7 @@ class PreCommitToHTML:
                 code_part.append(line)
 
         if path_result_content.exists():
-            path_result_content.unlink()
+            os.remove(str(path_result_content))
 
         path_result_content.touch()
 
