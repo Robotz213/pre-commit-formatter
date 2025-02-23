@@ -37,11 +37,25 @@
       <div class="card mt-4">
         <div class="card-header" style="background-color: rgb(36, 51, 1);">
           <h1>Pre-Commit Result</h1>
-          <!-- <p>Pre-Commit Result:
-            <span id="result">
-
-            </span>
-          </p> -->
+          <p>
+            {% if errors == 0 %}
+          <div class="alert alert-success">
+            No Errors Found
+          </div>
+          {% elif errors > 40 and errors < 60 %}
+          <div class="alert alert-warning rounded rounded-3" role="alert">
+            {{ errors }} Errors Found
+          </div>
+          {% elif errors > 60 %}
+          <div class="alert alert-danger rounded rounded-3" role="alert">
+            {{ errors }} Errors Found
+          </div>
+          {% else %}
+          <div class="alert alert-info rounded rounded-3" role="alert">
+            {{ errors }} Errors Found
+          </div>
+          {% endif %}
+          </p>
         </div>
         <div class="card-body">
           <div class="list-group">

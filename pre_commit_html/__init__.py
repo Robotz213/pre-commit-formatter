@@ -60,7 +60,11 @@ class PreCommitToHTML:
 
     def render_template(self) -> None:
         """Render the template and write the result to an HTML file."""
-        html_content = render_template("html_content.jinja").render(content=self.html_content, theme=self.theme)
+        html_content = render_template("html_content.jinja").render(
+            content=self.html_content,
+            theme=self.theme,
+            errors=len(self.html_content),
+        )
         if result_html.exists():
             os.remove(str(result_html))
 
@@ -107,18 +111,24 @@ class PreCommitToHTML:
                 for hook in hooks:
                     id_hook = hook.get("id")
                     if id_hook:
+                        command = ["pre-commit", "run", id_hook, "--all-files"]
+                        if id_hook == "bandit":
+                            command.append("--verbose")
                         result = subprocess.run(
-                            ["pre-commit", "run", id_hook, "--all-files"],
+                            command,
                             capture_output=True,
                             text=True,
+                            cwd=str(Path(__file__).cwd()),
+                            encoding="utf-8",
                         )
 
-                        if "passed" not in result.stdout.lower():
-                            if results != "":
-                                results += f"{result.stdout}\n"
-                                continue
+                        if result.stdout:
+                            if "Failed" in result.stdout:
+                                if results != "":
+                                    results += f"{result.stdout}\n"
+                                    continue
 
-                            results = result.stdout
+                                results = result.stdout
             return results
         except subprocess.CalledProcessError as e:
             return f"Erro ao executar pre-commit: {e.stderr}"
@@ -171,10 +181,12 @@ class PreCommitToHTML:
 
         for line in content_splitlines:
             if "\\" in line and ":" in line:
+                if "|" in line:
+                    continue
                 # if a file is found, add it to the code_part list if it is empty
                 h3_file = line.replace("\\", "/")
 
-                if len(self.code_part) > 0:
+                if len(self.code_part) > 0 or len(self.code_error) > 0:
                     self.code_error.append(self.code_part)
                     to_append = self.code_error
                     self.html_content.append(to_append)
@@ -185,7 +197,9 @@ class PreCommitToHTML:
                 if len(h3_file.split(":")) > 3:
                     self.format_result(h3_file=h3_file)
 
-            elif "|" in line:
+                continue
+
+            if "|" in line:
                 code_content = line
                 if code_content.strip() == "|":
                     continue
