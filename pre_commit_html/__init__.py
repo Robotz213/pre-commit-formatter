@@ -159,6 +159,6 @@ class PreCommitToHTML:
                 continue
 
             if "|" in line:
-                self.code_part.append(line)
+                self.code_part.append(line.replace("|", ""))
 
         self.render_template()
