@@ -4,6 +4,7 @@ import os
 import subprocess
 from pathlib import Path
 
+import html2text
 from jinja2 import Environment, FileSystemLoader, Template  # noqa: F401
 
 from pre_commit_html.utils import generate_editor_links
@@ -54,7 +55,7 @@ class PreCommitToHTML:
 
     def render_template(self) -> None:
         """Render the template and write the result to an HTML file."""
-        html_content = render_template("html_content.jinja").render(content_list=self.html_content)
+        html_content = render_template("html_content.jinja").render(content=self.html_content)
         if result_html.exists():
             os.remove(str(result_html))
 
@@ -62,11 +63,25 @@ class PreCommitToHTML:
             f.write(html_content)
 
         if self.to_markdown:
-            with result_md.open("w", encoding="utf-8") as f:
-                from docling.document_converter import DocumentConverter
+            try:
+                converter = html2text.HTML2Text()
+                converter.body_width = 0
+                converter.code = True
 
-                result = DocumentConverter().convert(result_html).document.export_to_markdown()
-                f.write(result)
+                with result_md.open("w", encoding="utf-8") as f:
+                    result = converter.handle(html_content)
+                    f.write(result)
+
+            except ImportError:
+                print(
+                    """
+                    ====================================
+                    Docling package is required to convert HTML to Markdown.
+                    Please install it using the following command:
+                    `pip install docling` or poetry add docling
+                    ====================================
+                    """
+                )
 
     def run_pre_commit(self) -> str:
         """Run the pre-commit command and capture its output.
@@ -90,12 +105,12 @@ class PreCommitToHTML:
 
     def format_result(self, h3_file: str) -> None:
         """Format the error head message."""
+        ruff_ref = ""
         path_code_file = h3_file.split(":")[0]
         line_code = h3_file.split(":")[1]
         column_code = h3_file.split(":")[2]
         message = h3_file.split(":")[3]
         path_file_link = str(path_code_file)
-        ruff_ref = message.split(" ")[1]
 
         try:
             workdir = Path.cwd().resolve()
@@ -114,18 +129,15 @@ class PreCommitToHTML:
                 ====================================
                 """
             )
+        self.code_error.append(message)
+        self.code_error.append(f"{path_code_file}:{line_code}:{column_code}")
+        self.code_error.append(path_file_link)
+        if len(message.split(" ")) > 1:
+            ruff_ref = message.split(" ")[1]
+            self.code_error.append(f"https://docs.astral.sh/ruff/rules/#{ruff_ref}")
 
-        ruff_ref = message.split(" ")[1]
-
-        self.code_error.append(
-            "".join((
-                f'<h3>File: <a href="{path_file_link}',
-                f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
-            ))
-        )
-        self.code_error.append(
-            f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
-        )
+        else:
+            self.code_error.append("")
 
     def pre_commit_html(self) -> None:
         """Format the pre-commit output into an HTML file.
@@ -138,27 +150,38 @@ class PreCommitToHTML:
         content_splitlines = content.splitlines()
 
         for line in content_splitlines:
-            if "\\" in line and ":" in line and len(self.code_part) == 0:
+            if "\\" in line and ":" in line:
                 # if a file is found, add it to the code_part list if it is empty
                 h3_file = line.replace("\\", "/")
 
+                if len(self.code_part) > 0:
+                    self.code_error.append(self.code_part)
+                    self.html_content.append(self.code_error)
+
+                    self.code_error.clear()
+                    self.code_part.clear()
+
                 if len(h3_file.split(":")) == 4:
                     self.format_result(h3_file=h3_file)
 
-            elif "\\" in line and ":" in line and len(self.code_part) > 0:
-                # else, if another file is found, clear the code_part list
-                # and add the previous file to the html_content list
+            elif "|" in line:
+                code_content = line.split("|")[-1]
+                if code_content.strip() == "":
+                    continue
+                self.code_part.append(code_content)
 
-                self.code_error.append(self.code_part)
-                self.html_content.append(self.code_error)
+        if all(
+            [  # noqa:W503
+                len(self.html_content) == 0,
+                len(self.code_part) > 0,
+                len(self.code_error) > 0,
+            ],
+        ):
+            self.code_error.append(self.code_part)
+            self.html_content.append(self.code_error)
 
-                h3_file = line.replace("\\", "/")
-                if len(h3_file.split(":")) == 4:
-                    self.format_result(h3_file=h3_file)
-
-                continue
-
-            if "|" in line:
-                self.code_part.append(line.replace("|", ""))
+            h3_file = line.replace("\\", "/")
+            if len(h3_file.split(":")) == 4:
+                self.format_result(h3_file=h3_file)
 
         self.render_template()

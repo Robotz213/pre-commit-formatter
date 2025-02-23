@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Commit Result</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css"
-      integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
-      integrity="sha512-EBLzUL8XLl+va/zAsmXwS7Z2B1F9HUHkZwyS/VKwh3S7T/U0nF4BaU29EP/ZSf6zgiIxYAnKLu6bJ8dqpmX5uw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/python.min.js"
-      integrity="sha512-/uCTceIDOniHf+VUKbCnP/x6GQSRrm4GwUtQYMgKa9yIZPGzlR04flSsD+2or7bPn44VY9inIHI4cwNCcZmJDw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
       integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -27,32 +19,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
       integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+      integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+      integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"
+      integrity="sha512-wW8K3TEH5ZViD4aMPzwPdhXKs/Kb5MAm7qLRd3QliYlHy0u9utSKZsZzqlZAgJ9xxXp81acwnrZVZ8oTfoLG1g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
 
-  <body>
-    <h1>Pre-Commit Result</h1>
-    <p>Pre-Commit Result: <span id="result"></span></p>
+  <body class="bg-dark">
 
-    <ul>
-      {% for item in content %}
-      {% set h3 = item[0] %}
-      {% set p = item[1] %}
-      {% set code = item[2] %}
-      <pre>
-        <code class="python">
-          {% for linecode in code %}
-          {{ linecode }}
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h1>Pre-Commit Result</h1>
+          <p>Pre-Commit Result:
+            <span id="result">
+
+            </span>
+          </p>
+        </div>
+        <div class="card-body" style="background-color: rgb(36, 51, 1);">
+          <div class="list-group">
+            {% for item in content %}
+            <a href="{{ item[2] }}" class="list-group-item list-group-item-action d-flex gap-3 py-3"
+              aria-current="true">
+              <div class="d-block w-100 gap-2 justify-content-between">
+                <div>
+                  <h6 class="mb-0">{{ item[1] }}</h6>
+                  <p class="mb-0 opacity-75">{{ item[0] }}</p>
+                  {% set code = item[4] %}
+                  <pre
+                    class="theme-atom-one-dark shadow-3xl text-sm relative overflow-hidden max-w-full tab-size h-full ">
+                    <code class="language-python">
+                      {% for linecode in code %}
+{{ linecode }}
+                      {% endfor %}
+                    </code>
+
+                  </pre>
+                </div>
+              </div>
+            </a>
+          </div>
           {% endfor %}
-        </code>
-      </pre>
-      {% endfor %}
-    </ul>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-    <!-- and it's easy to individually load additional languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
-
+          </ul>
+        </div>
+      </div>
+    </div>
     <script>hljs.highlightAll();</script>
 
   </body>
