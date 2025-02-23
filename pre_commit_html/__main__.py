@@ -9,3 +9,7 @@ def main() -> None:
     This function calls the pre_commit_html method from the PreCommitParser class.
     """
     PreCommitParser.pre_commit_html()
+
+
+if __name__ == "__main__":
+    SystemExit(main())

@@ -56,24 +56,25 @@ class PreCommitParser:
             if "\\" in line and ":" in line and len(code_part) == 0:
                 h3_file = line.replace("\\", "/")
 
-                path_code_file = h3_file.split(":")[0]
-                line_code = h3_file.split(":")[1]
-                column_code = h3_file.split(":")[2]
-                message = h3_file.split(":")[3]
+                if len(h3_file.split(":")) == 4:
+                    path_code_file = h3_file.split(":")[0]
+                    line_code = h3_file.split(":")[1]
+                    column_code = h3_file.split(":")[2]
+                    message = h3_file.split(":")[3]
 
-                ruff_ref = message.split(" ")[1]
+                    ruff_ref = message.split(" ")[1]
 
-                code_error.append(
-                    "".join(
-                        (
-                            f'<h3>File: <a href="./{path_code_file}:{line_code}:',
-                            f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
+                    code_error.append(
+                        "".join(
+                            (
+                                f'<h3>File: <a href="./{path_code_file}:{line_code}:',
+                                f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
+                            )
                         )
                     )
-                )
-                code_error.append(
-                    f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
-                )
+                    code_error.append(
+                        f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
+                    )
 
             elif "\\" in line and ":" in line and len(code_part) > 0:
                 h3_file = line.replace("\\", "/")
