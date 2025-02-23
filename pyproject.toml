@@ -1,12 +1,16 @@
 [project]
 name = "pre_commit_html"
-version = "v0.1.4"
+version = "v0.1.4b"
 description = "Format results from pre-commit cmd to HTML file"
 authors = [{ name = "Robotz213", email = "nicholas@robotz.dev" }]
 readme = "README.md"
 license = "MIT"
-requires-python = ">=3.13"
-dependencies = ["pre-commit (>=4.1.0,<5.0.0)", "jinja2 (>=3.1.5,<4.0.0)"]
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "pre-commit (>=4.1.0,<5.0.0)",
+    "jinja2 (>=3.1.5,<4.0.0)",
+    "docling (>=2.24.0,<3.0.0)",
+]
 
 [tool.poetry.scripts]
 pre-commit-html = "pre_commit_html.__main__:main"

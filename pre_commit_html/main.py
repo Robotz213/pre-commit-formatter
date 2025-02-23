@@ -13,6 +13,9 @@ def main(argv: Sequence[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="pre-commit-html")
 
     parser.add_argument("-i", "--IDE", type=str, help="The IDE to open the file in.", default="VS Code")
-
+    parser.add_argument("-m", "--to-markdown", action="store_true", help="Convert the HTML file to Markdown.")
     args = parser.parse_args(argv)
-    PreCommitToHTML(ide=args.IDE)
+    PreCommitToHTML(
+        ide=args.IDE,
+        to_markdown=args.to_markdown,
+    )

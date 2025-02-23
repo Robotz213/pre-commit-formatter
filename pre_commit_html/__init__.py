@@ -20,16 +20,53 @@ env = Environment(  # noqa:S701
 
 render_template = env.get_template
 
-path_result_content = Path("result_pre_commit.html")
+result_html = Path("result_pre_commit.html")
+result_md = Path("result_pre_commit.md")
 
 
 class PreCommitToHTML:
-    """Class to parse and format pre-commit results."""
+    """Class to parse and format pre-commit results.
 
-    def __init__(self, ide: str = "VS Code") -> None:
+    Attributes:
+        code_error (list[str]): Represents the section where the linter
+            error is occurring with:
+            - File path
+            - Line number
+            - Column number
+            - Error message
+
+        code_part (list[str]): Represents the code part where the linter
+        html_content (list[str]): Represents the HTML content to be written to the file.
+
+    """
+
+    ide = "VS Code"
+    to_markdown = False
+    code_error: list[str | list[str]] = []
+    code_part: list[str] = []
+    html_content: list[list[str | list[str]]] = []
+
+    def __init__(self, ide: str = "VS Code", to_markdown: bool = False) -> None:
         """Initialize the PreCommitToHTML class."""
         self.ide = ide
+        self.to_markdown = to_markdown
         self.pre_commit_html()
+
+    def render_template(self) -> None:
+        """Render the template and write the result to an HTML file."""
+        html_content = render_template("html_content.jinja").render(content_list=self.html_content)
+        if result_html.exists():
+            os.remove(str(result_html))
+
+        with result_html.open("w", encoding="utf-8") as f:
+            f.write(html_content)
+
+        if self.to_markdown:
+            with result_md.open("w", encoding="utf-8") as f:
+                from docling.document_converter import DocumentConverter
+
+                result = DocumentConverter().convert(result_html).document.export_to_markdown()
+                f.write(result)
 
     def run_pre_commit(self) -> str:
         """Run the pre-commit command and capture its output.
@@ -51,6 +88,45 @@ class PreCommitToHTML:
         except subprocess.CalledProcessError as e:
             return f"Erro ao executar pre-commit: {e.stderr}"
 
+    def format_result(self, h3_file: str) -> None:
+        """Format the error head message."""
+        path_code_file = h3_file.split(":")[0]
+        line_code = h3_file.split(":")[1]
+        column_code = h3_file.split(":")[2]
+        message = h3_file.split(":")[3]
+        path_file_link = str(path_code_file)
+        ruff_ref = message.split(" ")[1]
+
+        try:
+            workdir = Path.cwd().resolve()
+            path_code_file = h3_file.split(":")[0]
+
+            path_file_link = generate_editor_links(
+                workdir.joinpath(str(path_code_file)), int(line_code), int(column_code)
+            )[self.ide]
+        except Exception as e:
+            print(  # noqa:T201
+                f"""
+                ====================================
+                Error to generate link to file editor
+                File: {path_code_file}
+                Exception: {e}
+                ====================================
+                """
+            )
+
+        ruff_ref = message.split(" ")[1]
+
+        self.code_error.append(
+            "".join((
+                f'<h3>File: <a href="{path_file_link}',
+                f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
+            ))
+        )
+        self.code_error.append(
+            f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
+        )
+
     def pre_commit_html(self) -> None:
         """Format the pre-commit output into an HTML file.
 
@@ -61,94 +137,28 @@ class PreCommitToHTML:
 
         content_splitlines = content.splitlines()
 
-        html_content: list[str] = []
-
-        code_part: list[str] = []
-
-        code_error: list[str] = []
-
         for line in content_splitlines:
-            if "\\" in line and ":" in line and len(code_part) == 0:
+            if "\\" in line and ":" in line and len(self.code_part) == 0:
+                # if a file is found, add it to the code_part list if it is empty
                 h3_file = line.replace("\\", "/")
 
                 if len(h3_file.split(":")) == 4:
-                    path_code_file = h3_file.split(":")[0]
-                    path_file_link = path_code_file
+                    self.format_result(h3_file=h3_file)
 
-                    line_code = h3_file.split(":")[1]
-                    column_code = h3_file.split(":")[2]
-                    message = h3_file.split(":")[3]
+            elif "\\" in line and ":" in line and len(self.code_part) > 0:
+                # else, if another file is found, clear the code_part list
+                # and add the previous file to the html_content list
 
-                    try:
-                        workdir = Path.cwd().resolve()
-                        path_code_file = h3_file.split(":")[0]
+                self.code_error.append(self.code_part)
+                self.html_content.append(self.code_error)
 
-                        path_file_link = generate_editor_links(
-                            workdir.joinpath(str(path_code_file)), int(line_code), int(column_code)
-                        )[self.ide]
-                    except Exception as e:
-                        print(  # noqa:T201
-                            f"""
-                            ====================================
-                            Error to generate link to file editor
-                            File: {path_code_file}
-                            Exception: {e}
-                            ====================================
-                            """
-                        )
-
-                    ruff_ref = message.split(" ")[1]
-
-                    code_error.append(
-                        "".join((
-                            f'<h3>File: <a href="{path_file_link}',
-                            f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
-                        ))
-                    )
-                    code_error.append(
-                        f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
-                    )
-
-            elif "\\" in line and ":" in line and len(code_part) > 0:
                 h3_file = line.replace("\\", "/")
+                if len(h3_file.split(":")) == 4:
+                    self.format_result(h3_file=h3_file)
 
-                code_part_html = render_template("code_part.jinja").render(code_part=code_part)
-
-                code_error.append(code_part_html)
-                to_html = render_template("code_error.jinja").render(code_error=code_error)
-
-                html_content.append(to_html)
-
-                code_part.clear()
-                code_error.clear()
-
-                path_code_file = h3_file.split(":")[0]
-                line_code = h3_file.split(":")[1]
-                column_code = h3_file.split(":")[2]
-                message = h3_file.split(":")[3]
-
-                ruff_ref = message.split(" ")[1]
-
-                code_error.append(
-                    "".join((
-                        f'<h3>File: <a href="./{path_code_file}:{line_code}:',
-                        f'{column_code}">{path_code_file}:{line_code}:{column_code}</a></h3>',
-                    ))
-                )
-                code_error.append(
-                    f'<p>Error: <a href="https://docs.astral.sh/ruff/rules/#{ruff_ref}">{ruff_ref}</a>{message}</p>'
-                )
                 continue
 
             if "|" in line:
-                code_part.append(line)
+                self.code_part.append(line)
 
-        if path_result_content.exists():
-            os.remove(str(path_result_content))
-
-        path_result_content.touch()
-
-        html_content = render_template("html_content.jinja").render(content=html_content)
-
-        with open(path_result_content, "w", encoding="utf-8") as f:
-            f.write(html_content)
+        self.render_template()
