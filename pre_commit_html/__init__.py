@@ -73,7 +73,7 @@ class PreCommitToHTML:
                     f.write(result)
 
             except ImportError:
-                print(
+                print(  # noqa:T201
                     """
                     ====================================
                     Docling package is required to convert HTML to Markdown.
