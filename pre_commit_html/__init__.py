@@ -5,7 +5,8 @@ import subprocess
 from pathlib import Path
 
 import html2text
-from jinja2 import Environment, FileSystemLoader, Template  # noqa: F401
+import yaml  # noqa: F401
+from jinja2 import Environment, FileSystemLoader
 
 from pre_commit_html.utils import generate_editor_links
 
@@ -41,21 +42,25 @@ class PreCommitToHTML:
 
     """
 
+    theme = "dark"
     ide = "VS Code"
     to_markdown = False
     code_error: list[str | list[str]] = []
     code_part: list[str] = []
     html_content: list[list[str | list[str]]] = []
 
-    def __init__(self, ide: str = "VS Code", to_markdown: bool = False) -> None:
+    uri_html = ""
+
+    def __init__(self, ide: str = "VS Code", to_markdown: bool = False, theme: str = "dark") -> None:
         """Initialize the PreCommitToHTML class."""
         self.ide = ide
         self.to_markdown = to_markdown
+        self.theme = theme
         self.pre_commit_html()
 
     def render_template(self) -> None:
         """Render the template and write the result to an HTML file."""
-        html_content = render_template("html_content.jinja").render(content=self.html_content)
+        html_content = render_template("html_content.jinja").render(content=self.html_content, theme=self.theme)
         if result_html.exists():
             os.remove(str(result_html))
 
@@ -94,12 +99,27 @@ class PreCommitToHTML:
 
         """
         try:
-            result = subprocess.run(
-                ["pre-commit", "run", "--all-files"],
-                capture_output=True,
-                text=True,
-            )
-            return result.stdout
+            results = ""
+            yaml_config = yaml.safe_load(Path(".pre-commit-config.yaml").read_text())
+            repos = yaml_config.get("repos")
+            for repo in repos:
+                hooks = repo.get("hooks")
+                for hook in hooks:
+                    id_hook = hook.get("id")
+                    if id_hook:
+                        result = subprocess.run(
+                            ["pre-commit", "run", id_hook, "--all-files"],
+                            capture_output=True,
+                            text=True,
+                        )
+
+                        if "passed" not in result.stdout.lower():
+                            if results != "":
+                                results += f"{result.stdout}\n"
+                                continue
+
+                            results = result.stdout
+            return results
         except subprocess.CalledProcessError as e:
             return f"Erro ao executar pre-commit: {e.stderr}"
 
@@ -156,17 +176,18 @@ class PreCommitToHTML:
 
                 if len(self.code_part) > 0:
                     self.code_error.append(self.code_part)
-                    self.html_content.append(self.code_error)
+                    to_append = self.code_error
+                    self.html_content.append(to_append)
 
-                    self.code_error.clear()
-                    self.code_part.clear()
+                    self.code_error = []
+                    self.code_part = []
 
-                if len(h3_file.split(":")) == 4:
+                if len(h3_file.split(":")) > 3:
                     self.format_result(h3_file=h3_file)
 
             elif "|" in line:
-                code_content = line.split("|")[-1]
-                if code_content.strip() == "":
+                code_content = line
+                if code_content.strip() == "|":
                     continue
                 self.code_part.append(code_content)
 
@@ -185,3 +206,5 @@ class PreCommitToHTML:
                 self.format_result(h3_file=h3_file)
 
         self.render_template()
+        self.uri_html = result_html.resolve().as_uri()
+        print(f"HTML file generated: {self.uri_html}")  # noqa:T201

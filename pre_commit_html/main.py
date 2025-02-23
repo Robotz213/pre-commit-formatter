@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+import webbrowser
 from typing import Sequence
 
 from pre_commit_html import PreCommitToHTML
@@ -21,8 +22,18 @@ def main(argv: Sequence[str] | None = None) -> None:
         default="VS Code",
     )
     parser.add_argument("-m", "--to-markdown", "--md", help="Convert the HTML file to Markdown.", action="store_true")
+    parser.add_argument(
+        "-t",
+        "--theme",
+        type=str,
+        help="Theme for the HTML file. Supported themes: dark, light",
+        default="dark",
+    )
     args = parser.parse_args(argv)
-    PreCommitToHTML(
+    instance_ = PreCommitToHTML(
         ide=args.IDE,
         to_markdown=args.to_markdown,
+        theme=args.theme,
     )
+
+    webbrowser.open(str(instance_.uri_html))
