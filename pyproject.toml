@@ -1,6 +1,6 @@
 [project]
 name = "pre_commit_html"
-version = "0.1.1"
+version = "0.1.2"
 description = "Format results from pre-commit cmd to HTML file"
 authors = [{ name = "Robotz213", email = "nicholas@robotz.dev" }]
 readme = "README.md"
