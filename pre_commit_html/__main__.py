@@ -1,15 +1,6 @@
-"""This module contains the main function to run the pre-commit formatter."""
+"""Module containing the main function to run the pre-commit formatter."""
 
-from . import PreCommitParser
-
-
-def main() -> None:
-    """Main function to run the pre-commit formatter.
-
-    This function calls the pre_commit_html method from the PreCommitParser class.
-    """
-    PreCommitParser.pre_commit_html()
-
+from pre_commit_html.main import main
 
 if __name__ == "__main__":
     SystemExit(main())

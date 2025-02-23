@@ -18,7 +18,7 @@ This project is designed to run pre-commit hooks and format the results into an 
 
 ## How It Works
 
-1. **Run Pre-Commit Hooks**: The `PreCommitParser` class runs the pre-commit hooks using the `pre-commit run --all-files` command.
+1. **Run Pre-Commit Hooks**: The `PreCommitToHTML` class runs the pre-commit hooks using the `pre-commit run --all-files` command.
 2. **Parse Output**: The output from the pre-commit hooks is parsed to extract relevant information such as file paths, line numbers, column numbers, and error messages.
 3. **Generate HTML**: The parsed information is then formatted into an HTML file using Jinja2 templates. The HTML file includes links to the relevant lines in the source code and references to the documentation for the errors.
 
@@ -43,7 +43,7 @@ This will generate an HTML file named `result_pre_commit.html` in the project di
 ## Project Structure
 
 - `pre_commit_html/__main__.py`: Contains the main function to run the pre-commit formatter.
-- `pre_commit_html/__init__.py`: Contains the `PreCommitParser` class which handles running the pre-commit hooks and formatting the output.
+- `pre_commit_html/__init__.py`: Contains the `PreCommitToHTML` class which handles running the pre-commit hooks and formatting the output.
 - `site/templates/`: Contains the Jinja2 templates used to generate the HTML file.
 
 ## Templates

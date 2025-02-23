@@ -16,7 +16,7 @@ Este projeto é projetado para executar hooks de pré-commit e formatar os resul
 
 ## Como Funciona
 
-1. **Executar Hooks de Pré-Commit**: A classe `PreCommitParser` executa os hooks de pré-commit usando o comando `pre-commit run --all-files`.
+1. **Executar Hooks de Pré-Commit**: A classe `PreCommitToHTML` executa os hooks de pré-commit usando o comando `pre-commit run --all-files`.
 2. **Analisar Saída**: A saída dos hooks de pré-commit é analisada para extrair informações relevantes, como caminhos de arquivos, números de linha, números de coluna e mensagens de erro.
 3. **Gerar HTML**: As informações analisadas são então formatadas em um arquivo HTML usando templates Jinja2. O arquivo HTML inclui links para as linhas relevantes no código-fonte e referências à documentação dos erros.
 
@@ -41,7 +41,7 @@ Isso gerará um arquivo HTML chamado `result_pre_commit.html` no diretório do p
 ## Estrutura do Projeto
 
 - `pre_commit_html/__main__.py`: Contém a função principal para executar o formatter de pré-commit.
-- `pre_commit_html/__init__.py`: Contém a classe `PreCommitParser`, que lida com a execução dos hooks de pré-commit e a formatação da saída.
+- `pre_commit_html/__init__.py`: Contém a classe `PreCommitToHTML`, que lida com a execução dos hooks de pré-commit e a formatação da saída.
 - `site/templates/`: Contém os templates Jinja2 usados para gerar o arquivo HTML.
 
 ## Templates

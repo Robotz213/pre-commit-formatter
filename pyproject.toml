@@ -17,3 +17,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.5"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B603", "B404", "B607", "B701"]
